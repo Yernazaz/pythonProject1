@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h1 align="center">{% block header %}Papers{% endblock %}</h1>
+<div id="posts">
+  {% for post in posts %}
+  <div class="card border-dark">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <p>Author : <a href="/posts/{{post.user.username}}">{{post.user.username}}</a></p>
+      <div>
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-sm btn-primary dropdown-toggle"
+            data-bs-toggle="dropdown"
+          ></button>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="/delete-post/{{post.id}}" class="dropdown-item"
+                >Delete</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <iframe src="{{url_for('views.upload', filename=post.path)}}" ></iframe>
+      <br />
+    </div>
+  </div>
+  <br/>
+  {% endfor %}
+</div>
+{% block footer %}
+<div align="center">
+  <a href="/create-post"
+    ><button type="button" class="btn btn-primary btn-lg">
+      Create a Post
+    </button></a
+  >
+</div>
+{% endblock %} {% endblock %}
